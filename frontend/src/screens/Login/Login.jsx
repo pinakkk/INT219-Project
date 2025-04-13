@@ -1,12 +1,12 @@
-
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const slides = [
     {
@@ -48,7 +48,11 @@ export const Login = () => {
         body: JSON.stringify({ username, password }),
       });
       const data = await response.json();
-      setMessage(data.message);
+      if (data.status === "success") {
+        navigate("/dashboard"); // Redirect to Dashboard
+      } else {
+        setMessage(data.message);
+      }
     } catch (error) {
       setMessage(error.message || "Error connecting to the server");
     }
