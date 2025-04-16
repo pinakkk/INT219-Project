@@ -11,19 +11,19 @@ export const Register = () => {
     const slides = [
         {
             title: "Create and Protect",
-            graphic: "Fun fact goes here!",
+            graphic: "",
             description:
                 "Registering lets you track your progress and protect your ideas with confidence. Start your journey in Intellectual Property awareness today!",
         },
         {
             title: "Make It Yours",
-            graphic: "Interesting animation idea here",
+            graphic: "",
             description:
                 "IP is like a superhero shield for your creations — from songs to software. Signup and become an IP Hero!",
         },
         {
             title: "Begin Your IP Quest",
-            graphic: "Cute graphic here too",
+            graphic: "",
             description:
                 "Knowledge is power! Let's make sure your creativity is safe, secure, and recognized. Let's go!",
         },
@@ -151,11 +151,11 @@ export const Register = () => {
                                     exit="exit"
                                     className="absolute inset-0 flex flex-col items-center text-center px-4"
                                 >
-                                    <h2 className="text-2xl font-bold mb-2 font-comic">
+                                    <h2 className="text-2xl mt-8 font-bold mb-2 font-comic">
                                         {slides[slideIndex].title}
                                     </h2>
                                     <p className="text-lg mb-1 font-comic">{slides[slideIndex].graphic}</p>
-                                    <p className="text-md font-comic">{slides[slideIndex].description}</p>
+                                    <p className="text-md mt-4 font-comic">{slides[slideIndex].description}</p>
                                 </motion.div>
                             </AnimatePresence>
 
@@ -163,11 +163,11 @@ export const Register = () => {
                             <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2">
                                 {slides.map((_, index) => (
                                     <button
-                                        key={index}
-                                        onClick={() => handleDotClick(index)}
-                                        className={`w-3 h-3 rounded-full ${index === slideIndex ? "bg-black" : "bg-gray-400"
-                                            }`}
-                                    />
+                                    key={index}
+                                    onClick={() => handleDotClick(index)}
+                                    className={`w-3 h-3 border-2 border-black rounded-full ${index === slideIndex ? "bg-[#F9C0D1]" : "bg-white"
+                                      }`}
+                                  />
                                 ))}
                             </div>
                         </div>

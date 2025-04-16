@@ -10,22 +10,24 @@ export const Login = () => {
 
   const slides = [
     {
-      title: "Here will be some title",
-      graphic: "some animated graphics",
+      title: "Welcome to IPQuest!",
+      graphic: "",
       description:
-        "Did you know that your ideas, stories, inventions, and artwork can be protected? Intellectual Property (IP) ensures that creators get credit for their hard work. Whether you’re an artist, writer, inventor, or musician, understanding IP helps you protect your creativity!",
+        "Join us on an adventure to learn how your creative ideas can be protected! Discover the world of Intellectual Property through fun games and challenges designed especially for students.",
     },
     {
-      title: "Slide Two Title",
-      graphic: "another set of graphics",
-      description: "More details on slide two go here. Customize this text as needed.",
+      title: "Learn Through Play",
+      graphic: "",
+      description: 
+        "Play exciting games like IP Defender and Innovation Tycoon to understand patents, trademarks, and copyright. Complete quests, earn badges, and become an IP expert while having fun!",
     },
     {
-      title: "Slide Three Title",
-      graphic: "further animated graphics",
-      description: "Additional information for slide three. Change the content to fit your needs.",
+      title: "Protect Your Creativity",
+      graphic: "",
+      description: 
+        "Did you know the artwork, stories, inventions and projects you create at school can be protected? Learn how to safeguard your ideas and respect the work of others in our digital world.",
     },
-  ];
+  ]
 
   const [slideIndex, setSlideIndex] = useState(0);
 
@@ -142,11 +144,11 @@ export const Login = () => {
                   exit="exit"
                   className="absolute inset-0 flex flex-col items-center text-center px-4"
                 >
-                  <h2 className="text-2xl font-bold mb-2 font-comic">
+                  <h2 className="text-2xl mt-8 font-bold mb-2 font-comic">
                     {slides[slideIndex].title}
                   </h2>
                   <p className="text-lg mb-1 font-comic">{slides[slideIndex].graphic}</p>
-                  <p className="text-md font-comic">{slides[slideIndex].description}</p>
+                  <p className="text-md mt-4 font-comic">{slides[slideIndex].description}</p>
                 </motion.div>
               </AnimatePresence>
 
@@ -156,7 +158,7 @@ export const Login = () => {
                   <button
                     key={index}
                     onClick={() => handleDotClick(index)}
-                    className={`w-3 h-3 rounded-full ${index === slideIndex ? "bg-black" : "bg-gray-400"
+                    className={`w-3 h-3 border-2 border-black rounded-full ${index === slideIndex ? "bg-[#F9C0D1]" : "bg-white"
                       }`}
                   />
                 ))}

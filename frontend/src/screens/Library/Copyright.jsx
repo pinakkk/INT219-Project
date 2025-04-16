@@ -114,65 +114,6 @@ const Copyright = () => {
         </div>
       </motion.div>
       
-      {/* Resources */}
-      <div className="max-w-6xl mx-auto mb-10">
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Learning Resources</h2>
-        
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {copyrightResources.map(resource => (
-            <motion.div
-              key={resource.id}
-              className="glass-card p-6"
-              variants={itemVariants}
-              whileHover={{ y: -5, boxShadow: "0 15px 30px rgba(0,0,0,0.1)" }}
-            >
-              <div className="flex items-start mb-4">
-                <motion.div 
-                  className="resource-icon-container mr-4 bg-green-50"
-                  whileHover={{ rotate: 10 }}
-                >
-                  <span className="text-2xl">{resource.icon}</span>
-                </motion.div>
-                <div>
-                  <h3 className="font-semibold text-lg mb-1 text-green-700">{resource.title}</h3>
-                  <p className="text-sm text-gray-600 mb-2">{resource.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {resource.categories.map((category, index) => (
-                      <span key={index} className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
-                        {category}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex items-center space-x-4 text-xs text-gray-500">
-                    <span className={`px-2 py-1 rounded-full ${
-                      resource.level === "Beginner" ? "bg-green-100 text-green-700" :
-                      resource.level === "Intermediate" ? "bg-blue-100 text-blue-700" :
-                      "bg-purple-100 text-purple-700"
-                    }`}>
-                      {resource.level}
-                    </span>
-                    <span>⏱️ {resource.timeToComplete}</span>
-                  </div>
-                </div>
-              </div>
-              
-              <motion.button
-                className="mt-4 w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-all shadow-sm"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Start Learning
-              </motion.button>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-      
       {/* What Copyright Protects */}
       <motion.div
         className="max-w-6xl mx-auto mb-10"
@@ -288,6 +229,65 @@ const Copyright = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Resources */}
+      <div className="max-w-6xl mx-auto mb-10">
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Learning Resources</h2>
+        
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {copyrightResources.map(resource => (
+            <motion.div
+              key={resource.id}
+              className="glass-card p-6"
+              variants={itemVariants}
+              whileHover={{ y: -5, boxShadow: "0 15px 30px rgba(0,0,0,0.1)" }}
+            >
+              <div className="flex items-start mb-4">
+                <motion.div 
+                  className="resource-icon-container mr-4 bg-green-50"
+                  whileHover={{ rotate: 10 }}
+                >
+                  <span className="text-2xl">{resource.icon}</span>
+                </motion.div>
+                <div>
+                  <h3 className="font-semibold text-lg mb-1 text-green-700">{resource.title}</h3>
+                  <p className="text-sm text-gray-600 mb-2">{resource.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {resource.categories.map((category, index) => (
+                      <span key={index} className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
+                        {category}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex items-center space-x-4 text-xs text-gray-500">
+                    <span className={`px-2 py-1 rounded-full ${
+                      resource.level === "Beginner" ? "bg-green-100 text-green-700" :
+                      resource.level === "Intermediate" ? "bg-blue-100 text-blue-700" :
+                      "bg-purple-100 text-purple-700"
+                    }`}>
+                      {resource.level}
+                    </span>
+                    <span>⏱️ {resource.timeToComplete}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <motion.button
+                className="mt-4 w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-all shadow-sm"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Start Learning
+              </motion.button>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
       
       {/* Footer */}
       <div className="max-w-6xl mx-auto mt-10 text-center text-gray-600">

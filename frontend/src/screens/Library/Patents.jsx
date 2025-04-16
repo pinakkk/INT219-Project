@@ -114,6 +114,60 @@ const Patents = () => {
         </div>
       </motion.div>
       
+      {/* Patent Process */}
+      <motion.div
+        className="max-w-6xl mx-auto mb-10"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.5 }}
+      >
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">The Patent Process</h2>
+        
+        <div className="glass-card p-8">
+          <div className="flex flex-col space-y-6">
+            <div className="flex flex-col md:flex-row items-start gap-4">
+              <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xl shrink-0">1</div>
+              <div>
+                <h3 className="text-xl font-semibold mb-2 text-blue-700">Invention Disclosure</h3>
+                <p className="text-gray-600">Document your invention thoroughly, including how it works, what problem it solves, and how it differs from existing solutions.</p>
+              </div>
+            </div>
+            
+            <div className="flex flex-col md:flex-row items-start gap-4">
+              <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xl shrink-0">2</div>
+              <div>
+                <h3 className="text-xl font-semibold mb-2 text-blue-700">Patentability Search</h3>
+                <p className="text-gray-600">Conduct a thorough search of existing patents and prior art to ensure your invention is novel and non-obvious.</p>
+              </div>
+            </div>
+            
+            <div className="flex flex-col md:flex-row items-start gap-4">
+              <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xl shrink-0">3</div>
+              <div>
+                <h3 className="text-xl font-semibold mb-2 text-blue-700">Prepare and File Application</h3>
+                <p className="text-gray-600">Draft a patent application with claims, specifications, and drawings that clearly describe your invention.</p>
+              </div>
+            </div>
+            
+            <div className="flex flex-col md:flex-row items-start gap-4">
+              <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xl shrink-0">4</div>
+              <div>
+                <h3 className="text-xl font-semibold mb-2 text-blue-700">Patent Examination</h3>
+                <p className="text-gray-600">The patent office examines your application and may issue "office actions" requiring responses and amendments.</p>
+              </div>
+            </div>
+            
+            <div className="flex flex-col md:flex-row items-start gap-4">
+              <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xl shrink-0">5</div>
+              <div>
+                <h3 className="text-xl font-semibold mb-2 text-blue-700">Patent Grant</h3>
+                <p className="text-gray-600">If approved, your patent is granted and provides protection for a limited time (typically 20 years from filing).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Resources */}
       <div className="max-w-6xl mx-auto mb-10">
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Learning Resources</h2>
@@ -172,60 +226,6 @@ const Patents = () => {
           ))}
         </motion.div>
       </div>
-      
-      {/* Patent Process */}
-      <motion.div
-        className="max-w-6xl mx-auto mb-10"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.5 }}
-      >
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">The Patent Process</h2>
-        
-        <div className="glass-card p-8">
-          <div className="flex flex-col space-y-6">
-            <div className="flex flex-col md:flex-row items-start gap-4">
-              <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xl shrink-0">1</div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2 text-blue-700">Invention Disclosure</h3>
-                <p className="text-gray-600">Document your invention thoroughly, including how it works, what problem it solves, and how it differs from existing solutions.</p>
-              </div>
-            </div>
-            
-            <div className="flex flex-col md:flex-row items-start gap-4">
-              <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xl shrink-0">2</div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2 text-blue-700">Patentability Search</h3>
-                <p className="text-gray-600">Conduct a thorough search of existing patents and prior art to ensure your invention is novel and non-obvious.</p>
-              </div>
-            </div>
-            
-            <div className="flex flex-col md:flex-row items-start gap-4">
-              <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xl shrink-0">3</div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2 text-blue-700">Prepare and File Application</h3>
-                <p className="text-gray-600">Draft a patent application with claims, specifications, and drawings that clearly describe your invention.</p>
-              </div>
-            </div>
-            
-            <div className="flex flex-col md:flex-row items-start gap-4">
-              <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xl shrink-0">4</div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2 text-blue-700">Patent Examination</h3>
-                <p className="text-gray-600">The patent office examines your application and may issue "office actions" requiring responses and amendments.</p>
-              </div>
-            </div>
-            
-            <div className="flex flex-col md:flex-row items-start gap-4">
-              <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xl shrink-0">5</div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2 text-blue-700">Patent Grant</h3>
-                <p className="text-gray-600">If approved, your patent is granted and provides protection for a limited time (typically 20 years from filing).</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.div>
       
       {/* Footer */}
       <div className="max-w-6xl mx-auto mt-10 text-center text-gray-600">

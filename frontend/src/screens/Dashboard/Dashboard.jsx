@@ -88,7 +88,7 @@ function Dashboard() {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
             <motion.div 
-              className="flex items-center group"
+              className="flex items-center"
               whileHover={{ scale: 1.03 }}
             >
               <div className="logo-container bg-yellow-400 w-12 h-12 rounded-xl flex items-center justify-center shadow-lg">
@@ -127,7 +127,8 @@ function Dashboard() {
             </div>
           </div>
           <div className="flex items-center ml-4 md:ml-14">
-            <div className="h-line-animation w-20 h-1 mr-4 bg-yellow-400"></div>
+            {/* Removed animation from the line */}
+            <div className="w-20 h-1 mr-4 bg-yellow-400"></div>
             <p className="text-lg tagline text-gray-600">
               Discover the world of Intellectual Property
             </p>
@@ -170,29 +171,7 @@ function Dashboard() {
                 ))}
               </motion.div>
 
-              {/* Game Categories */}
-              <div className="mb-14">
-                <h3 className="text-xl font-semibold mb-6 text-center">Browse by Category</h3>
-                <motion.div 
-                  className="grid grid-cols-2 md:grid-cols-4 gap-4"
-                  variants={containerVariants}
-                  initial="hidden"
-                  animate="visible"
-                >
-                  <motion.div variants={itemVariants}>
-                    <CategoryCard icon="📜" title="Patents" color="from-blue-100 to-blue-50" />
-                  </motion.div>
-                  <motion.div variants={itemVariants}>
-                    <CategoryCard icon="™️" title="Trademarks" color="from-purple-100 to-purple-50" />
-                  </motion.div>
-                  <motion.div variants={itemVariants}>
-                    <CategoryCard icon="©️" title="Copyright" color="from-green-100 to-green-50" />
-                  </motion.div>
-                  <motion.div variants={itemVariants}>
-                    <CategoryCard icon="🔍" title="Research" color="from-orange-100 to-orange-50" />
-                  </motion.div>
-                </motion.div>
-              </div>
+              {/* Removed "Browse by Category" section */}
             </motion.section>
           )}
 
@@ -212,68 +191,57 @@ function Dashboard() {
               />
               
               <motion.div 
-                className="glass-card hover:shadow-xl mb-8"
+                className="glass-card hover:shadow-lg mb-8"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <div className="p-6">
+                <div className="p-8">
                   <div className="flex flex-col md:flex-row items-center">
-                    <div className="w-full md:w-1/5 flex justify-center mb-6 md:mb-0">
-                      <motion.div 
-                        className="library-emoji-container w-24 h-24 rounded-full flex items-center justify-center shadow-md bg-gradient-to-r from-amber-100 to-white"
-                        animate={{ 
-                          y: [0, -10, 0],
-                          scale: [1, 1.05, 1] 
-                        }}
-                        transition={{ 
-                          duration: 4, 
-                          repeat: Infinity, 
-                          ease: "easeInOut" 
-                        }}
-                      >
-                        <span className="text-4xl">📚</span>
-                      </motion.div>
+                    <div className="w-full md:w-1/4 flex justify-center mb-8 md:mb-0">
+                      <div className="w-36 h-36 rounded-full flex items-center justify-center shadow-lg bg-gradient-to-r from-amber-100 to-white">
+                        <span className="text-6xl">📚</span>
+                      </div>
                     </div>
-                    <div className="w-full md:w-4/5 md:pl-8">
-                      <h3 className="text-xl font-semibold mb-3">Knowledge Resources</h3>
-                      <p className="text-gray-600 mb-5">
-                        Access comprehensive guides, case studies, and practical examples of intellectual property.
+                    <div className="w-full md:w-3/4 md:pl-8">
+                      <h3 className="text-2xl font-semibold mb-4">Knowledge Resources</h3>
+                      <p className="text-gray-600 mb-6">
+                        Access our comprehensive collection of IP resources, including detailed guides, 
+                        case studies, and practical examples to enhance your understanding of intellectual property concepts.
                       </p>
+                      
+                      <div className="bg-amber-50 p-4 rounded-lg mb-6 border-l-4 border-yellow-400">
+                        <h4 className="font-medium text-amber-800 mb-2">Why explore our library?</h4>
+                        <p className="text-sm text-gray-700">
+                          Our curated resources help you understand the fundamentals of IP protection, 
+                          learn best practices, and see real-world applications through practical examples.
+                        </p>
+                      </div>
+                      
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                        <div className="glass-card p-4 text-center hover:bg-amber-50 transition-colors">
+                          <span className="text-2xl mb-2 inline-block">📄</span>
+                          <GlassButton to="/library/patents" text="Patents" />
+                        </div>
+                        <div className="glass-card p-4 text-center hover:bg-amber-50 transition-colors">
+                          <span className="text-2xl mb-2 inline-block">™️</span>
+                          <GlassButton to="/library/trademarks" text="Trademarks" />
+                        </div>
+                        <div className="glass-card p-4 text-center hover:bg-amber-50 transition-colors">
+                          <span className="text-2xl mb-2 inline-block">©️</span>
+                          <GlassButton to="/library/copyright" text="Copyright" />
+                        </div>
+                      </div>
+                      
                       <div className="flex flex-wrap gap-3">
-                        <GlassButton to="/library/patents" text="Patents" />
+                        {/* <GlassButton to="/library/patents" text="Patents" />
                         <GlassButton to="/library/trademarks" text="Trademarks" />
-                        <GlassButton to="/library/copyright" text="Copyright" />
-                        <PrimaryButton to="/library" text="Browse All" />
+                        <GlassButton to="/library/copyright" text="Copyright" /> */}
+                        <PrimaryButton to="/library" text="Browse All Resources" />
                       </div>
                     </div>
                   </div>
                 </div>
-              </motion.div>
-
-              {/* Featured Resources */}
-              <motion.div 
-                className="grid grid-cols-1 md:grid-cols-2 gap-6"
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                <motion.div variants={itemVariants}>
-                  <ResourceCard 
-                    title="Patent Filing Guide" 
-                    description="Step-by-step guide to filing your first patent application"
-                    icon="📝"
-                    progress={45}
-                  />
-                </motion.div>
-                <motion.div variants={itemVariants}>
-                  <ResourceCard 
-                    title="Trademark Case Studies" 
-                    description="Real-world examples of trademark disputes and resolutions"
-                    icon="🏛️"
-                    progress={80}
-                  />
-                </motion.div>
               </motion.div>
             </motion.section>
           )}
@@ -402,75 +370,69 @@ function Dashboard() {
 }
 
 // Reusable Components
+// Fixed GameCard to address glitches
 const GameCard = ({ game, isExpanded, onExpand }) => (
   <motion.div 
-    className={`game-card ${isExpanded ? "expanded" : ""}`}
-    whileHover={{ y: -5 }}
-    layout
+    className="glass-card overflow-hidden p-6 h-full flex flex-col"
+    whileHover={{ y: -5, boxShadow: "0px 10px 25px rgba(0,0,0,0.1)" }}
+    layoutId={`game-card-${game.id}`}
   >
-    <div className="game-card-header" onClick={onExpand}>
-      <motion.div 
-        className="game-emoji-container"
-        whileHover={{ scale: 1.1, rotate: 5 }}
-      >
-        <span className="text-4xl floating-emoji">{game.emoji}</span>
-      </motion.div>
-      <h3 className="game-title">{game.title}</h3>
-      <p className="game-description">{game.description}</p>
-      <div className="game-difficulty">{game.difficulty}</div>
+    <div className="flex items-start mb-4 cursor-pointer" onClick={onExpand}>
+      <div className="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center shrink-0 mr-4">
+        <span className="text-3xl">{game.emoji}</span>
+      </div>
+      <div>
+        <h3 className="text-xl font-semibold mb-1">{game.title}</h3>
+        <p className="text-sm text-gray-600 mb-2">{game.description}</p>
+        <span className="inline-block px-2 py-1 bg-amber-100 text-amber-800 text-xs rounded-full">
+          {game.difficulty}
+        </span>
+      </div>
     </div>
     
     <AnimatePresence>
       {isExpanded && (
         <motion.div 
-          className="game-card-details"
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.3 }}
+          className="mt-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
         >
           <p className="text-gray-600 mb-4">{game.longDescription}</p>
-          <div className="progress-container mb-4">
+          <div className="mb-4">
             <div className="flex justify-between text-sm mb-1">
               <span>Progress: {game.completed}%</span>
               <span>{game.points} points</span>
             </div>
-            <div className="progress-bar">
+            <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
               <motion.div 
-                className="progress-fill" 
+                className="h-full bg-yellow-400 rounded-full" 
                 initial={{ width: 0 }}
                 animate={{ width: `${game.completed}%` }}
-                transition={{ duration: 1, delay: 0.2 }}
+                transition={{ duration: 0.8 }}
               ></motion.div>
             </div>
           </div>
-          <PrimaryButton to={game.link} text={game.completed > 0 ? "Continue" : "Start Now"} fullWidth />
+          <PrimaryButton 
+            to={game.link} 
+            text={game.completed > 0 ? "Continue" : "Start Now"} 
+            fullWidth 
+          />
         </motion.div>
       )}
     </AnimatePresence>
   </motion.div>
 );
 
+// Removed continuous animations from emoji
 const CategoryCard = ({ icon, title, color }) => (
   <motion.div 
     className={`category-card bg-gradient-to-br ${color}`}
     whileHover={{ y: -5, scale: 1.03 }}
     whileTap={{ scale: 0.97 }}
   >
-    <motion.span 
-      className="text-3xl mb-2 inline-block"
-      animate={{ 
-        y: [0, -5, 0],
-        rotate: [0, 5, 0]
-      }}
-      transition={{ 
-        duration: 3, 
-        repeat: Infinity, 
-        ease: "easeInOut" 
-      }}
-    >
-      {icon}
-    </motion.span>
+    <span className="text-3xl mb-2 inline-block">{icon}</span>
     <h4 className="font-medium">{title}</h4>
   </motion.div>
 );
@@ -481,28 +443,24 @@ const ResourceCard = ({ title, description, icon, progress }) => (
     whileHover={{ y: -5 }}
   >
     <div className="flex items-start mb-4">
-      <motion.div 
-        className="resource-icon-container mr-4"
-        whileHover={{ rotate: [0, -10, 10, -5, 0] }}
-        transition={{ duration: 0.5 }}
-      >
+      <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center shrink-0 mr-4">
         <span className="text-2xl">{icon}</span>
-      </motion.div>
+      </div>
       <div>
         <h4 className="font-semibold">{title}</h4>
         <p className="text-sm text-gray-600">{description}</p>
       </div>
     </div>
-    <div className="progress-container">
+    <div>
       <div className="flex justify-between text-xs mb-1">
         <span>Completed: {progress}%</span>
       </div>
-      <div className="progress-bar">
+      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
         <motion.div 
-          className="progress-fill" 
+          className="h-full bg-yellow-400 rounded-full" 
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.8 }}
         ></motion.div>
       </div>
     </div>
@@ -510,111 +468,59 @@ const ResourceCard = ({ title, description, icon, progress }) => (
 );
 
 const StatItem = ({ label, value, icon }) => (
-  <motion.div 
-    className="flex items-center"
-    whileHover={{ x: 5 }}
-  >
-    <motion.div 
-      className="stat-icon-container mr-3"
-      whileHover={{ scale: 1.2, rotate: 10 }}
-    >
+  <div className="flex items-center p-2 hover:bg-amber-50 rounded-lg transition-colors">
+    <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center shrink-0 mr-3">
       <span>{icon}</span>
-    </motion.div>
+    </div>
     <div>
       <div className="text-sm text-gray-600">{label}</div>
       <div className="text-xl font-semibold">{value}</div>
     </div>
-  </motion.div>
+  </div>
 );
 
 const ProgressItem = ({ title, progress }) => (
   <div>
     <div className="flex justify-between text-sm mb-1">
       <span>{title}</span>
-      <motion.span 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-      >
-        {progress}%
-      </motion.span>
+      <span>{progress}%</span>
     </div>
-    <div className="progress-bar">
+    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
       <motion.div 
-        className="progress-fill" 
+        className="h-full bg-yellow-400 rounded-full" 
         initial={{ width: 0 }}
         animate={{ width: `${progress}%` }}
-        transition={{ 
-          duration: 1.2, 
-          ease: "easeOut" 
-        }}
+        transition={{ duration: 0.8 }}
       ></motion.div>
     </div>
   </div>
 );
 
 const ActivityItem = ({ activity }) => (
-  <motion.div 
-    className="flex items-start"
-    whileHover={{ 
-      x: 5,
-      backgroundColor: "rgba(255, 255, 255, 0.3)",
-      borderRadius: "8px" 
-    }}
-  >
-    <motion.div 
-      className="activity-icon-container mr-3"
-      whileHover={{ scale: 1.1 }}
-    >
-      <div className="activity-icon">
-        {activity.action === "Completed" ? "✓" : activity.action === "Earned" ? "★" : "➤"}
-      </div>
-    </motion.div>
+  <div className="flex items-start p-2 hover:bg-amber-50 rounded-lg transition-colors">
+    <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center shrink-0 mr-3 text-amber-800">
+      {activity.action === "Completed" ? "✓" : activity.action === "Earned" ? "★" : "➤"}
+    </div>
     <div className="flex-1">
       <div className="flex justify-between">
         <span className="font-medium">{activity.item}</span>
         {activity.points > 0 && (
-          <motion.span 
-            className="text-primary text-sm"
-            animate={{ 
-              scale: [1, 1.2, 1],
-            }}
-            transition={{ 
-              duration: 0.5,
-              delay: 0.3
-            }}
-          >
-            +{activity.points} pts
-          </motion.span>
+          <span className="text-amber-600 text-sm">+{activity.points} pts</span>
         )}
       </div>
       <div className="text-xs text-gray-500">{activity.time}</div>
     </div>
-  </motion.div>
+  </div>
 );
 
 const BadgeCard = ({ emoji, title, earned, locked }) => (
-  <motion.div 
-    className={`badge-card ${earned ? "earned" : ""} ${locked ? "locked" : ""}`}
-    whileHover={{ y: -5, scale: earned ? 1.05 : 1 }}
-  >
-    <motion.div 
-      className="badge-emoji-container"
-      animate={earned ? { 
-        y: [0, -5, 0],
-        boxShadow: ["0px 4px 10px rgba(0, 0, 0, 0.05)", "0px 8px 15px rgba(255, 182, 65, 0.3)", "0px 4px 10px rgba(0, 0, 0, 0.05)"]
-      } : {}}
-      transition={{ 
-        duration: 2, 
-        repeat: Infinity, 
-        ease: "easeInOut" 
-      }}
-    >
+  <div className={`p-4 text-center rounded-lg ${earned ? "bg-amber-50" : "bg-gray-50"} ${locked ? "opacity-50" : ""}`}>
+    <div className="w-16 h-16 mx-auto rounded-full bg-white border-2 border-amber-100 flex items-center justify-center mb-2 relative shadow-sm">
       <span className="text-2xl">{emoji}</span>
-      {locked && <div className="badge-lock">🔒</div>}
-    </motion.div>
-    <div className="text-sm mt-2 text-center">{title}</div>
-  </motion.div>
+      {locked && <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-70 rounded-full">🔒</div>}
+    </div>
+    <div className="text-sm font-medium">{title}</div>
+  </div>
 );
 
 // Section components with animation
@@ -625,15 +531,7 @@ const SectionHeader = ({ title, subtitle }) => (
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
   >
-    <motion.h2 
-      className="text-3xl font-bold section-title mb-2"
-      whileInView={{ 
-        textShadow: ["0px 0px 0px rgba(0,0,0,0)", "0px 2px 5px rgba(255, 182, 65, 0.5)", "0px 0px 0px rgba(0,0,0,0)"] 
-      }}
-      transition={{ duration: 2, repeat: Infinity }}
-    >
-      {title}
-    </motion.h2>
+    <h2 className="text-3xl font-bold mb-2 text-gray-800">{title}</h2>
     {subtitle && <p className="text-gray-600">{subtitle}</p>}
   </motion.div>
 );
@@ -645,9 +543,9 @@ const GlassButton = ({ to, text, fullWidth = false }) => (
   >
     <Link 
       to={to} 
-      className={`glass-button py-2 px-4 rounded-lg text-sm font-medium transition-all 
-        bg-white bg-opacity-20 backdrop-blur-sm border border-white border-opacity-30
-        hover:shadow-md text-yellow-600 ${fullWidth ? 'w-full block text-center' : 'inline-block'}`}
+      className={`py-2 px-4 rounded-lg text-sm font-medium transition-all 
+        bg-white bg-opacity-90 border border-gray-200 shadow-sm
+        hover:shadow-md text-gray-700 hover:text-amber-600 ${fullWidth ? 'w-full block text-center' : 'inline-block'}`}
     >
       {text}
     </Link>
@@ -661,7 +559,9 @@ const PrimaryButton = ({ to, text, fullWidth = false }) => (
   >
     <Link 
       to={to} 
-      className={`primary-button ${fullWidth ? 'w-full' : ''}`}
+      className={`py-2 px-4 rounded-lg text-sm font-medium text-center transition-all 
+        bg-yellow-500 hover:bg-yellow-600 text-white shadow-sm hover:shadow-md
+        ${fullWidth ? 'w-full block' : 'inline-block'}`}
     >
       {text}
     </Link>

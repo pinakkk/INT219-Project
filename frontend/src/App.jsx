@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // Existing Screens
 import Login from "./screens/Login/Login";
@@ -21,10 +21,11 @@ import Library from "./screens/Library/Library";
 import Patents from "./screens/Library/Patents";
 import Trademarks from "./screens/Library/Trademarks";
 import Copyright from "./screens/Library/Copyright";
+import ResourceContent from "./screens/Resources/ResourceContent";
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
@@ -45,8 +46,9 @@ function App() {
         <Route path="/library/patents" element={<Patents />} />
         <Route path="/library/trademarks" element={<Trademarks />} />
         <Route path="/library/copyright" element={<Copyright />} />
+        <Route path="/resource/:id" element={<ResourceContent />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
