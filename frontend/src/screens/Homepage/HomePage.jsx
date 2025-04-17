@@ -2,7 +2,6 @@ import React from "react";
 import { Navbar } from "./Navbar";
 import { Hero } from "./Hero";
 import { AboutTheProject } from "./AboutTheProject";
-import { BannerWrapper } from "./BannerWrapper";
 import { HowItWorks } from "./HowItWorks";
 import { Testimonials } from "./Testimonials";
 import { Footer } from "./Footer";
@@ -14,9 +13,7 @@ export function HomePage() {
 
     <Navbar/>
     <Hero/>
-
-    {/* <AboutTheProject/>
-    <BannerWrapper/> */}
+    <AboutTheProject/>
     <HowItWorks/>
     <Testimonials/>
     <Footer/>

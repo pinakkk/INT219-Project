@@ -59,10 +59,21 @@ export const Testimonials = () => {
 
           <div className="flex flex-col md:flex-row gap-8 justify-center">
             {/* Testimonial 1 */}
-            <div className="w-full md:w-[400px] h-[450px] bg-[#ffdbd9] rounded-[50px] overflow-hidden border-[3px] border-solid border-white">
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+              className="w-full md:w-[400px] h-[450px] bg-[#ffdbd9] rounded-[50px] overflow-hidden border-[3px] border-solid border-white"
+            >
               <div className="relative w-full h-full p-4">
-                <div className="w-full h-full rounded-[50px] overflow-hidden border-[3px] border-solid border-black bg-gradient-to-r from-[#FFFF00] to-white flex flex-col items-center justify-center p-6">
-                  <img
+                <motion.div 
+                  whileHover={{ boxShadow: "0px 10px 20px rgba(0,0,0,0.15)" }}
+                  className="w-full h-full rounded-[50px] overflow-hidden border-[3px] border-solid border-black bg-gradient-to-r from-[#FFFF00] to-white flex flex-col items-center justify-center p-6"
+                >
+                  <motion.img
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 300 }}
                     src="https://randomuser.me/api/portraits/women/44.jpg"
                     alt="User avatar"
                     className="w-20 h-20 rounded-full mb-6 object-cover border-2 border-black"
@@ -71,15 +82,26 @@ export const Testimonials = () => {
                     "This game helped me understand how to protect my artwork!"
                   </p>
                   <p className="mt-4 font-bold">- Sarah, Artist</p>
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Testimonial 2 */}
-            <div className="w-full md:w-[400px] h-[450px] bg-[#ffdbd9] rounded-[50px] overflow-hidden border-[3px] border-solid border-white">
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+              className="w-full md:w-[400px] h-[450px] bg-[#ffdbd9] rounded-[50px] overflow-hidden border-[3px] border-solid border-white"
+            >
               <div className="relative w-full h-full p-4">
-                <div className="w-full h-full rounded-[50px] overflow-hidden border-[3px] border-solid border-black bg-gradient-to-r from-[#FFFF00] to-white flex flex-col items-center justify-center p-6">
-                  <img
+                <motion.div 
+                  whileHover={{ boxShadow: "0px 10px 20px rgba(0,0,0,0.15)" }}
+                  className="w-full h-full rounded-[50px] overflow-hidden border-[3px] border-solid border-black bg-gradient-to-r from-[#FFFF00] to-white flex flex-col items-center justify-center p-6"
+                >
+                  <motion.img
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 300 }}
                     src="https://randomuser.me/api/portraits/men/32.jpg"
                     alt="User avatar"
                     className="w-20 h-20 rounded-full mb-6 object-cover border-2 border-black"
@@ -88,15 +110,26 @@ export const Testimonials = () => {
                     "A fun and interactive way to introduce students to IP concepts!"
                   </p>
                   <p className="mt-4 font-bold">- David, Teacher</p>
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Testimonial 3 - hidden on small screens */}
-            <div className="hidden md:block w-full md:w-[400px] h-[450px] bg-[#ffdbd9] rounded-[50px] overflow-hidden border-[3px] border-solid border-white">
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+              className="hidden md:block w-full md:w-[400px] h-[450px] bg-[#ffdbd9] rounded-[50px] overflow-hidden border-[3px] border-solid border-white"
+            >
               <div className="relative w-full h-full p-4">
-                <div className="w-full h-full rounded-[50px] overflow-hidden border-[3px] border-solid border-black bg-gradient-to-r from-[#FFFF00] to-white flex flex-col items-center justify-center p-6">
-                  <img
+                <motion.div 
+                  whileHover={{ boxShadow: "0px 10px 20px rgba(0,0,0,0.15)" }}
+                  className="w-full h-full rounded-[50px] overflow-hidden border-[3px] border-solid border-black bg-gradient-to-r from-[#FFFF00] to-white flex flex-col items-center justify-center p-6"
+                >
+                  <motion.img
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 300 }}
                     src="https://randomuser.me/api/portraits/women/68.jpg"
                     alt="User avatar"
                     className="w-20 h-20 rounded-full mb-6 object-cover border-2 border-black"
@@ -105,9 +138,9 @@ export const Testimonials = () => {
                     "Now I know why trademarks and copyrights are important!"
                   </p>
                   <p className="mt-4 font-bold">- Maria, Student</p>
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
