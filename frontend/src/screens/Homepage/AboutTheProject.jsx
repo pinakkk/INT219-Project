@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Component } from "../../../../components/Component";
 
 export const AboutTheProject = () => {
   return (

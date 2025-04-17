@@ -6,6 +6,8 @@ import Login from "./screens/Login/Login";
 import Register from "./screens/Register/Register";
 import ContactPage from "./screens/Contact/ContactPage";
 import Dashboard from "./screens/Dashboard/Dashboard";
+import HomePage from './screens/Homepage/HomePage'
+
 
 // New Game Modules & Optional Screens
 import IPQuest from "./screens/GameModules/IPQuest";
@@ -47,6 +49,8 @@ function App() {
         <Route path="/library/trademarks" element={<Trademarks />} />
         <Route path="/library/copyright" element={<Copyright />} />
         <Route path="/resource/:id" element={<ResourceContent />} />
+        
+        <Route path="/homepage/homepage" element={<HomePage />} />
       </Routes>
     </BrowserRouter>
   );
