@@ -2,7 +2,6 @@ import React from "react";
 import { motion } from "framer-motion";
 
 export const HowItWorks = () => {
-  const testimonials = ["TESTIMONIALS", "TESTIMONIALS", "TESTIMONIALS", "TESTIMONIALS"];
 
   return (
     <div className="relative bg-[#ff00ff] overflow-hidden">
@@ -87,24 +86,6 @@ export const HowItWorks = () => {
             </ol>
           </motion.div>
         </div>
-      </div>
-
-      {/* Infinite Scrolling Testimonials */}
-      <div className="w-full bg-[#FFFF00] border-[5px] border-l-0 border-r-0 border-black py-8 overflow-hidden">
-        <motion.div
-          className="flex whitespace-nowrap"
-          animate={{ x: ["-50%", "0%"] }}
-          transition={{ duration: 20, ease: "linear", repeat: Infinity }}
-        >
-          {[...testimonials, ...testimonials].map((text, idx) => (
-            <div
-              key={idx}
-              className="inline-block mx-8 text-2xl font-comic text-black"
-            >
-              {text}
-            </div>
-          ))}
-        </motion.div>
       </div>
     </div>
   );

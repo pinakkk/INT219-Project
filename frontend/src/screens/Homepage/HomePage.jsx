@@ -14,7 +14,7 @@ export function HomePage() {
     <>
 
     <Navbar/>
-    {/* <Hero/> */}
+    <Hero/>
     {/* <Banner/>
     <AboutTheProject/>
     <BannerWrapper/> */}
