@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import Cloud2 from '../../assets/imgs/cloud2.png'; // Import your cloud image here
-
 
 const hero= ["LEARN", "GET CERTIFIED", "GET REWARDED", "BECOME AN IP HERO"];
 
@@ -14,6 +14,7 @@ const messages = [
 
 export const Hero = () => {
   const [currentMessage, setCurrentMessage] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -22,40 +23,37 @@ export const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const handleGetStarted = () => {
+    navigate('/login');
+  };
+
   return (
     <>
-
       <motion.div
-        className="w-full relative bg-[#ff00ff]"
+        id="hero" // Added ID for scroll functionality
+        className="w-full relative bg-[#ff00ff] overflow-hidden"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        {/* Floating Clouds Animation */}
+        {/* Floating Clouds Animation - Desktop only */}
         <motion.img
-          className="absolute w-[245px] top-[65px] left-[1195px] h-[200px] object-cover"
+          className="hidden md:block absolute w-[25%] max-w-[245px] top-[10%] right-[5%] h-auto object-contain"
           alt="Cloud"
-          src="https://c.animaapp.com/LD12u2BN/img/c1@2x.png"
+          src={Cloud2}
           animate={{ y: ["0px", "20px", "0px"] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         />
 
         {/* Character Animation */}
-        <motion.img
-          className="absolute w-[815px] h-[682px] top-0 left-0 object-cover"
+        <img
+          className="absolute w-[815px] h-[682px] top-0 left-0 object-cover md:block hidden"
           alt="Character"
           src="https://c.animaapp.com/LD12u2BN/img/adobe-express---file-1.png"
-          animate={{ x: ["-5px", "5px", "-5px"] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         />
 
         <div className="hidden md:block relative max-w-full h-[682px] mx-auto">
-          <img
-            className="absolute w-[114px] h-[78px] top-[199px] left-[547px]"
-            alt="Polygon"
-            src="https://c.animaapp.com/LD12u2BN/img/polygon-1.svg"
-          />
-
+          
           {/* Animated Message Box with Comic Border */}
           <div className="absolute w-[560px] h-[110px] top-[151px] left-[614px] bg-white rounded-[15px] border-[4px] border-black shadow-[5px_5px_0px_black] flex justify-center items-center">
             <AnimatePresence mode="wait">
@@ -73,11 +71,19 @@ export const Hero = () => {
             </AnimatePresence>
           </div>
 
-          {/* Get Started Button */}
+          {/* Get Started Button - Enhanced with consistent hover effects */}
           <motion.div
-            className="absolute w-[242px] h-[63px] top-72 left-[614px] bg-[#ffff00] rounded-[15px] border-2 border-black flex justify-center items-center cursor-pointer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            onClick={handleGetStarted}
+            className="absolute w-[242px] h-[63px] top-72 left-[614px] bg-[#ffff00] rounded-[15px] border-2 border-black flex justify-center items-center cursor-pointer shadow-[3px_3px_0px_black]"
+            whileHover={{ 
+              scale: 1.05,
+              backgroundColor: "#ffff33",
+              boxShadow: "5px 5px 0px black"
+            }}
+            whileTap={{ 
+              scale: 0.95,
+              boxShadow: "1px 1px 0px black" 
+            }}
           >
             <p className="text-black text-2xl" style={{ fontFamily: "'Comic_Neue', Helvetica" }}>
               Get Started
@@ -85,31 +91,28 @@ export const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Floating Clouds Animation */}
+        {/* Floating Clouds Animation - Desktop only */}
         <motion.img
-          className="absolute w-auto top-[400px] left-[500px] h-[200px] object-contain"
+          className="hidden md:block absolute w-[20%] max-w-[200px] bottom-[20%] left-[35%] h-auto object-contain"
           alt="Cloud"
           src={Cloud2}
           animate={{ y: ["0px", "20px", "0px"] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        {/* Mobile Hero */}
-        <div className="block md:hidden relative w-full px-4 py-8">
-          <div className="flex flex-col items-center space-y-6">
-            <img className="w-20 h-auto" alt="Polygon" src="https://c.animaapp.com/LD12u2BN/img/polygon-1.svg" />
-
-            {/* Floating Cloud for Mobile */}
-            <motion.img
-              className="w-full max-w-md h-auto object-cover"
-              alt="Cloud"
-              src="https://c.animaapp.com/LD12u2BN/img/c1@2x.png"
-              animate={{ y: ["0px", "15px", "0px"] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        {/* Mobile Hero - Modified for centered message box */}
+        <div className="block md:hidden relative w-full min-h-[60ch] px-4 py-8 flex items-center justify-center">
+          <div className="flex flex-col items-center justify-center h-full w-full">
+         
+            {/* Mobile Character (Smaller version) */}
+            <img
+              className="absolute w-[800px] h-[550px] top-0 left-0 object-cover"
+              alt="Character"
+              src="https://c.animaapp.com/LD12u2BN/img/adobe-express---file-1.png"
             />
 
-            {/* Animated Message Box with Comic Border (Mobile) */}
-            <div className="bg-white rounded-[15px] border-[4px] border-black shadow-[5px_5px_0px_black] px-4 py-2 text-center flex justify-center items-center">
+            {/* Animated Message Box with Comic Border (Mobile) - Now centered */}
+            <div className="bg-white rounded-[15px] mt-[250px] border-[4px] border-black shadow-[5px_5px_0px_black] px-4 py-3 w-[90%] text-center flex justify-center items-center relative z-10 my-auto">
               <AnimatePresence mode="wait">
                 <motion.p
                   key={currentMessage}
@@ -127,11 +130,19 @@ export const Hero = () => {
 
             {/* Animated Button */}
             <motion.button
-              className="bg-[#ffff00] rounded-[15px] border-2 border-black px-6 py-2 transition-colors duration-200 hover:bg-gray-200"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              onClick={handleGetStarted}
+              className="bg-[#ffff00] rounded-[15px] border-2 border-black px-6 py-3 relative z-10 shadow-[3px_3px_0px_black] mt-4"
+              whileHover={{ 
+                scale: 1.05, 
+                backgroundColor: "#ffff33",
+                boxShadow: "5px 5px 0px black"
+              }}
+              whileTap={{ 
+                scale: 0.95, 
+                boxShadow: "1px 1px 0px black" 
+              }}
             >
-              <span className="text-black text-xl" style={{ fontFamily: "'Comic_Neue', Helvetica" }}>
+              <span className="text-black text-xl font-bold" style={{ fontFamily: "'Comic_Neue', Helvetica" }}>
                 Get Started
               </span>
             </motion.button>

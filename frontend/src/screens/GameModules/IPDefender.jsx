@@ -126,135 +126,169 @@ const IPDefender = () => {
     if (gameStatus !== "playing" || isPaused) return;
     
     const gameLoop = setInterval(() => {
-      updateState({ gameTime: gameTime + 1 });
+      // Batch state updates to prevent race conditions
+      const stateUpdates = {
+        gameTime: gameTime + 1
+      };
       
-      // Move threats and handle attacks in one pass
-      const updatedThreats = [...threats];
-      const updatedDefenders = defenders.map(defender => {
-        // Handle defender cooldown
-        if (defender.cooldownRemaining > 0) {
-          return { ...defender, cooldownRemaining: defender.cooldownRemaining - 1 };
-        }
+      // Process defenders and threats in a more efficient way
+      const processGameState = () => {
+        const updatedThreats = [...threats];
+        let moneyGained = 0;
+        let scoreGained = 0;
+        let livesLost = 0;
         
-        // Find threats in range
-        const threatsInRange = updatedThreats.filter(threat => {
-          const distance = Math.sqrt(
-            Math.pow(defender.position.x - threat.position.x, 2) + 
-            Math.pow(defender.position.y - threat.position.y, 2)
-          );
-          return distance <= defenderTypes[defender.type].range && threat.health > 0;
-        });
-        
-        // Attack the first threat in range
-        if (threatsInRange.length > 0) {
-          const targetThreat = threatsInRange[0];
-          const threatIndex = updatedThreats.findIndex(t => t.id === targetThreat.id);
+        // Process defender attacks
+        const updatedDefenders = defenders.map(defender => {
+          // Update cooldown
+          if (defender.cooldownRemaining > 0) {
+            return { ...defender, cooldownRemaining: defender.cooldownRemaining - 1 };
+          }
           
-          if (threatIndex >= 0) {
-            // Apply damage
-            updatedThreats[threatIndex].health -= defenderTypes[defender.type].power;
+          // Find threats in range
+          const inRange = updatedThreats.filter(threat => {
+            if (threat.defeated) return false;
             
-            // Check if threat defeated
-            if (updatedThreats[threatIndex].health <= 0) {
-              updateState({
-                money: money + threatTypes[targetThreat.type].reward,
-                score: score + threatTypes[targetThreat.type].reward
-              });
-              // Mark for removal
-              updatedThreats[threatIndex].defeated = true;
+            const distance = Math.sqrt(
+              Math.pow(defender.position.x - threat.position.x, 2) + 
+              Math.pow(defender.position.y - threat.position.y, 2)
+            );
+            return distance <= defenderTypes[defender.type].range;
+          });
+          
+          // Attack if possible
+          if (inRange.length > 0) {
+            const target = inRange[0];
+            const threatIndex = updatedThreats.findIndex(t => t.id === target.id);
+            
+            if (threatIndex >= 0) {
+              // Apply damage and visual effect
+              updatedThreats[threatIndex].health -= defenderTypes[defender.type].power;
+              updatedThreats[threatIndex].isUnderAttack = true;
+              
+              // Check if defeated
+              if (updatedThreats[threatIndex].health <= 0) {
+                updatedThreats[threatIndex].defeated = true;
+                moneyGained += threatTypes[target.type].reward;
+                scoreGained += threatTypes[target.type].reward;
+              }
+              
+              // Reset cooldown
+              return { 
+                ...defender, 
+                cooldownRemaining: defenderTypes[defender.type].cooldown,
+                isAttacking: true
+              };
             }
           }
           
-          // Reset cooldown
-          return { ...defender, cooldownRemaining: defenderTypes[defender.type].cooldown };
-        }
-        
-        return defender;
-      });
-      
-      // Update threat positions and remove defeated threats
-      const newThreats = updatedThreats.filter(threat => !threat.defeated).map(threat => {
-        // Calculate movement toward asset
-        const dx = assetPosition.x - threat.position.x;
-        const dy = assetPosition.y - threat.position.y;
-        const angle = Math.atan2(dy, dx);
-        
-        const newX = threat.position.x + Math.cos(angle) * threatTypes[threat.type].speed * 0.1;
-        const newY = threat.position.y + Math.sin(angle) * threatTypes[threat.type].speed * 0.1;
-        
-        // Check if reached asset
-        const distanceToAsset = Math.sqrt(
-          Math.pow(assetPosition.x - newX, 2) + 
-          Math.pow(assetPosition.y - newY, 2)
-        );
-        
-        if (distanceToAsset < 0.5) {
-          // Damage the asset/player
-          updateState({ lives: Math.max(0, lives - threatTypes[threat.type].damage) });
-          return null; // Remove threat
-        }
-        
-        return {
-          ...threat,
-          position: { x: newX, y: newY }
-        };
-      }).filter(Boolean); // Remove nulls
-      
-      // Generate new threats based on wave and time
-      if (gameTime % 30 === 0 && newThreats.length < 5 + wave * 2) {
-        const threatType = Object.keys(threatTypes)[Math.floor(Math.random() * Object.keys(threatTypes).length)];
-        const edgeSide = Math.floor(Math.random() * 4);
-        let position;
-        
-        // Spawn from a random edge but make sure coordinates are valid
-        switch (edgeSide) {
-          case 0: // Top
-            position = { x: Math.floor(Math.random() * GRID_WIDTH), y: 0 };
-            break;
-          case 1: // Right
-            position = { x: GRID_WIDTH - 1, y: Math.floor(Math.random() * GRID_HEIGHT) };
-            break;
-          case 2: // Bottom
-            position = { x: Math.floor(Math.random() * GRID_WIDTH), y: GRID_HEIGHT - 1 };
-            break;
-          case 3: // Left
-            position = { x: 0, y: Math.floor(Math.random() * GRID_HEIGHT) };
-            break;
-          default:
-            position = { x: 0, y: 0 };
-        }
-        
-        newThreats.push({
-          id: Date.now(),
-          type: threatType,
-          health: threatTypes[threatType].health,
-          position
+          return { ...defender, isAttacking: false };
         });
-      }
-      
-      // Check wave completion and level status
-      if (gameTime % 300 === 0 && newThreats.length === 0) {
-        if (wave < currentLevelData.waves) {
-          updateState({ 
-            wave: wave + 1,
-            money: money + 50 // Bonus for completing wave
-          });
-        } else {
-          // Level completed
-          updateState({ gameStatus: "won" });
-          saveGameProgress();
+        
+        // Update state with money and score if needed
+        if (moneyGained > 0) {
+          stateUpdates.money = money + moneyGained;
+          stateUpdates.score = score + scoreGained;
         }
-      }
+        
+        // Process threat movement and remove defeated threats
+        const newThreats = updatedThreats
+          .filter(threat => !threat.defeated)
+          .map(threat => {
+            // Clear attack indicator after a short time
+            if (threat.isUnderAttack && gameTime % 3 === 0) {
+              threat.isUnderAttack = false;
+            }
+            
+            // Calculate movement toward asset
+            const dx = assetPosition.x - threat.position.x;
+            const dy = assetPosition.y - threat.position.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const angle = Math.atan2(dy, dx);
+            
+            // Move toward asset
+            const speed = threatTypes[threat.type].speed * 0.1;
+            const newX = threat.position.x + (dx / distance) * speed;
+            const newY = threat.position.y + (dy / distance) * speed;
+            
+            // Check if reached asset (use a smaller threshold)
+            if (distance < 0.5) {
+              livesLost += threatTypes[threat.type].damage;
+              return null;
+            }
+            
+            return {
+              ...threat,
+              position: { x: newX, y: newY }
+            };
+          })
+          .filter(Boolean); // Remove nulls
+        
+        // Update lives if needed
+        if (livesLost > 0) {
+          stateUpdates.lives = Math.max(0, lives - livesLost);
+        }
+        
+        // Generate new threats
+        if (gameTime % 30 === 0 && newThreats.length < 5 + wave * 2) {
+          const threatType = Object.keys(threatTypes)[Math.floor(Math.random() * Object.keys(threatTypes).length)];
+          const edgeSide = Math.floor(Math.random() * 4);
+          let position;
+          
+          // Improved spawning logic to avoid immediate asset damage
+          switch (edgeSide) {
+            case 0: // Top
+              position = { x: Math.floor(Math.random() * GRID_WIDTH), y: -0.5 };
+              break;
+            case 1: // Right
+              position = { x: GRID_WIDTH - 0.5, y: Math.floor(Math.random() * GRID_HEIGHT) };
+              break;
+            case 2: // Bottom
+              position = { x: Math.floor(Math.random() * GRID_WIDTH), y: GRID_HEIGHT - 0.5 };
+              break;
+            case 3: // Left
+              position = { x: -0.5, y: Math.floor(Math.random() * GRID_HEIGHT) };
+              break;
+            default:
+              position = { x: -0.5, y: -0.5 };
+          }
+          
+          newThreats.push({
+            id: Date.now() + Math.random(), // Avoid ID collisions
+            type: threatType,
+            health: threatTypes[threatType].health,
+            position,
+            isUnderAttack: false
+          });
+        }
+        
+        // Check wave completion
+        if (gameTime > 100 && gameTime % 50 === 0 && newThreats.length === 0) {
+          if (wave < currentLevelData.waves) {
+            stateUpdates.wave = wave + 1;
+            stateUpdates.money = money + 50 + (wave * 10); // Progressive bonus
+          } else {
+            // Level completed
+            stateUpdates.gameStatus = "won";
+            setTimeout(saveGameProgress, 500);
+          }
+        }
+        
+        // Check game over
+        if (lives <= 0) {
+          stateUpdates.gameStatus = "lost";
+        }
+        
+        // Update threats and defenders
+        stateUpdates.threats = newThreats;
+        stateUpdates.defenders = updatedDefenders;
+        
+        // Update state in a single batch
+        updateState(stateUpdates);
+      };
       
-      // Check game over
-      if (lives <= 0) {
-        updateState({ gameStatus: "lost" });
-      }
-      
-      // Update state with new threats and defenders
-      updateState({ threats: newThreats, defenders: updatedDefenders });
-      
-    }, 100); // 10 FPS
+      processGameState();
+    }, 100);
     
     return () => clearInterval(gameLoop);
   }, [gameStatus, isPaused, threats, defenders, wave, lives, gameTime, money, score, updateState]);
@@ -373,12 +407,13 @@ const IPDefender = () => {
       
       {/* Threats - positioned relative to the grid */}
       {threats.map(threat => {
-        // Calculate cell size (3.5rem = 14 * 0.25rem) to match cell size including margins
-        const cellSize = 14; // 12 (width/height class) + 2 (margins)
+        // Use a better calculation for cell size that accounts for Tailwind classes
+        const cellWidth = 52; // 48px (w-12) + 4px margins
+        const cellHeight = 52; // 48px (h-12) + 4px margins
         
-        // Calculate exact position within the grid
-        const leftPos = `calc(${threat.position.x} * ${cellSize}px + 8px)`; // 8px for grid padding
-        const topPos = `calc(${threat.position.y} * ${cellSize}px + 8px)`; // 8px for grid padding
+        // Calculate position with proper offsets
+        const leftPos = `${threat.position.x * cellWidth + 8}px`;
+        const topPos = `${threat.position.y * cellHeight + 8}px`;
         
         return (
           <motion.div

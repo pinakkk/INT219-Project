@@ -23,7 +23,7 @@ export const HowItWorks = () => {
         </motion.div>
       </div>
 
-      <div className="relative bg-[#ff00ff] overflow-hidden">
+      <div id="how-it-works" className="relative bg-[#ff00ff] overflow-hidden">
         {/* Floating Clouds */}
         <motion.img
         src="https://c.animaapp.com/UBuW8UdC/img/adobe-express---file--1--4.png"

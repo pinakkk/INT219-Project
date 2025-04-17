@@ -24,7 +24,7 @@ export const AboutTheProject = () => {
   };
 
   return (
-    <div className="bg-[#ff46ff] flex flex-row justify-center w-full">
+    <div id="about" className="bg-[#ff46ff] flex flex-row justify-center w-full">
       <div className="bg-[#ff46ff] w-full h-auto relative">
         {/* Cloud image as background - visible on all screen sizes */}
         <div className="absolute w-full h-full overflow-hidden pointer-events-none">
@@ -47,15 +47,15 @@ export const AboutTheProject = () => {
         <div className="relative w-full max-w-[1421px] h-auto min-h-[500px] md:min-h-[798px] md pt-[18px] px-3.5">
           <div className="relative w-full max-w-[1338px] h-auto min-h-[500px] md:min-h-[781px] mt-[17px] ml-0 md:ml-[83px]">
             {/* Main image - visible on all screens, positioned differently */}
-            <motion.img
+            <img
               className="block w-full max-w-[781px] h-auto aspect-square mx-auto -mb-10 md:mb-0 md:absolute md:top-0 md:left-auto md:right-0 object-cover"
               alt="Adobe express file"
               src="https://c.animaapp.com/RJqnVjRE/img/adobe-express---file-2.png"
-              animate={{ y: [0, 20, 0] }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-              initial={{ scale: 0.9, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
+              // animate={{ y: [0, 20, 0] }}
+              // transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+              // initial={{ scale: 0.9, opacity: 0 }}
+              // whileInView={{ scale: 1, opacity: 1 }}
+              // viewport={{ once: true }}
             />
             
             <motion.div 
