@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import Cloud2 from '../../assets/imgs/cloud2.png'; // Import your cloud image here
+import Cloud2 from '../../assets/imgs/cloud2.png';
+import $ from 'jquery'; // Import jQuery
 
 const hero= ["LEARN", "GET CERTIFIED", "GET REWARDED", "BECOME AN IP HERO"];
 
@@ -15,12 +16,35 @@ const messages = [
 export const Hero = () => {
   const [currentMessage, setCurrentMessage] = useState(0);
   const navigate = useNavigate();
-
+  const buttonRef = useRef(null); // Reference to the button
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentMessage((prev) => (prev + 1) % messages.length);
     }, 3000); // Change message every 3 seconds
-    return () => clearInterval(interval);
+    
+    // jQuery functionality for button hover effect
+    if (buttonRef.current) {
+      $(buttonRef.current).on('mouseenter', function() {
+        $(this).find('span').animate({ 
+          letterSpacing: '1px',
+          fontSize: '1.1em'
+        }, 300);
+      }).on('mouseleave', function() {
+        $(this).find('span').animate({ 
+          letterSpacing: 'normal',
+          fontSize: '1em'
+        }, 200);
+      });
+    }
+    
+    // Cleanup function
+    return () => {
+      clearInterval(interval);
+      if (buttonRef.current) {
+        $(buttonRef.current).off('mouseenter mouseleave');
+      }
+    };
   }, []);
 
   const handleGetStarted = () => {
@@ -30,7 +54,7 @@ export const Hero = () => {
   return (
     <>
       <motion.div
-        id="hero" // Added ID for scroll functionality
+        id="hero"
         className="w-full relative bg-[#ff00ff] overflow-hidden"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -71,8 +95,9 @@ export const Hero = () => {
             </AnimatePresence>
           </div>
 
-          {/* Get Started Button - Enhanced with consistent hover effects */}
+          {/* Get Started Button - Enhanced with jQuery */}
           <motion.div
+            ref={buttonRef}
             onClick={handleGetStarted}
             className="absolute w-[242px] h-[63px] top-72 left-[614px] bg-[#ffff00] rounded-[15px] border-2 border-black flex justify-center items-center cursor-pointer shadow-[3px_3px_0px_black]"
             whileHover={{ 
@@ -86,7 +111,7 @@ export const Hero = () => {
             }}
           >
             <p className="text-black text-2xl" style={{ fontFamily: "'Comic_Neue', Helvetica" }}>
-              Get Started
+              <span>Get Started</span>
             </p>
           </motion.div>
         </div>
@@ -128,8 +153,9 @@ export const Hero = () => {
               </AnimatePresence>
             </div>
 
-            {/* Animated Button */}
+            {/* Mobile Get Started Button - with jQuery */}
             <motion.button
+              ref={buttonRef}
               onClick={handleGetStarted}
               className="bg-[#ffff00] rounded-[15px] border-2 border-black px-6 py-3 relative z-10 shadow-[3px_3px_0px_black] mt-4"
               whileHover={{ 
